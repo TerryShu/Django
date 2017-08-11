@@ -1,0 +1,13 @@
+sudo apt-get update
+sudo apt adt-get -y upgrade //更新
+sudo apt-get -y install openssh-server //裝SSHserver
+
+sudo apt-get -y install vsftpd //裝FTPserver
+/*
+若需要寫入檔案
+sudo vim etc/vsftpd.conf
+把裡面write_enale註解刪掉
+sudo service vsftpd restart重開server
+*/
+
+ip a //看ip

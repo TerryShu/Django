@@ -1,0 +1,12 @@
+sudo apt-get install -y git //裝git
+git config --global user.name "名字"
+git config --global user.email "信箱"
+
+
+git init //git初始化
+git remote add origin https://github.com/TerryShu/myweb.git//設定路徑傳到git
+//若出現 fatal: remote origin already exists.表示設定過路徑 先刪掉git remote rm origin 在重跑add
+git add .//把所有檔案標起來
+git commit -m 'commit' //加註解 -m為快速註解
+//建議都先更新本地 git pull origin master
+git push origin master //若出現error需要先用git pull origin master 原因為建立repo時有readme但本機端沒有所以error

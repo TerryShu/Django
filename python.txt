@@ -1,0 +1,194 @@
+sudo apt-get install -y python-pip //python的安裝器
+sudo pip install virtualenv //python用來創建網站虛擬環境
+virtualenv VENV //建網站虛擬環境
+source VENV/bin/activate //進入venv
+deactivate //離開venv
+pip install django //裝django
+django-admin startproject myweb //用django-admin建project名稱myweb
+
+pip freeze > requirements.txt //為了移植方便 需要把虛擬環境記錄下來
+pip install -r 'requirements.txt'
+
+python manage.py startapp mainsite //用managa建立mainsite
+python manage.py runserver
+sudo apt install tree // 裝樹 
+tree myDjango //看資料結構
+
+
+
+/*改setting.py 3個地方
+
+ALLOWED_HOSTS = ['192.168.203.128', 'localhost', '127.0.0.1'] //在setting.py增加允許拜訪
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+	.
+	.
+	.
+    'mainsite', //加入mainsite
+	.
+	.
+	. //裝入要用的套件
+]
+
+
+LANGUAGE_CODE = 'zh-hant'
+TIME_ZONE = 'Asia/Taipei'
+
+*/
+
+python manage.py makemigrations mainsite //建立資料庫和DJANGO之間的中介檔案
+python manage.py migrate //更新資料庫內容
+//若有建model需要用著兩個指令 讓數據庫生效
+python manage.py runserver 192.168.203.128:8000 //runserver at 192........
+
+
+python manage.py createsuperuser //建立管理者
+192.168.203.128:8000/admin  //管理者介面
+
+/*
+
+Django MTW
+---------------------------------------------------------
+將資料分為 Model -> model.py(定義存取的資料類別)
+
+bool = models.BooleanField(default=False) //像checkbox
+models.DateField(auto_now = True) //隱藏的時間
+models.DateTimeField(default=timezone.now) //可自行輸入時間
+body = models.TextField() //輸入區域
+
+/*
+
+    class Meta:
+        
+	ordering = ('-pub_date',)
+//用來指定文章顯示順序 已發布日期決定 要用-pub_data需pip install pytz
+  
+
+    def __unicode__(self):
+        
+	return self.title // 已unicode提供標題
+*/
+
+
+/*
+    SIZE = (
+        
+		('S' , 'Small'),
+        
+		('M' , 'Medium'),
+        
+		('L' , 'Large'),
+    
+	   )
+
+    
+size = models.CharField(max_length=1,choices=SIZE,default='M')
+//用來建立選擇表單
+*/
+
+說明文件   https://docs.djangoproject.com/en/1.11/ref/models/fields/
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+Template -> dir Templete(美觀)
+
+要套用前 先mkdir templates
+然後改setting.py 設定路徑
+'DIRS': [os.path.join(BASE_DIR , 'templates')]
+
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+View -> view.py(處理資料save&load)
+
+locals() //可以將目前記憶體內的區域變數打包成字典
+
+from django.http import Http404 
+raise Http404('display')
+ 
+---------------------------------------------------------
+
+
+其餘.py功用
+
+---------------------------------------------------------
+urls.py(負責網址與程式間的對應)
+	url(r'^$', homepage) ^表字串開頭 $表連接 => 此方法為根目錄呼叫homepage函式
+	url(r'^admin/', admin.site.urls) 當網址為192..../admin時執行admin
+	url(r'^list/([0-9a-zA-Z]+)/$', function) //用()來傳遞參數 表示如果網址為192..../list/a123A 'a123A'會傳到function內 
+---------------------------------------------------------
+
+---------------------------------------------------------
+admin.py(管理者頁面)(可管理model的table)
+
+from .models import NewTable //先匯入在model.py建立的表格
+admin.site.register(NewTable) //建立管理頁面
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+在python shell下操作資料庫
+python manage.py shell
+
+from mysite.models import Table //先匯入model
+new = Table(name1 = value , name2 = 'value2'...) //新增項目
+new.save() //儲存
+exit()
+
+Django 資料庫為ORM(Object Relation Mapping)
+取得的datatype為Queryset
+常用指令
+函數:
+fileter() <-> exclude() //傳回符合/不符合條件的Q
+order_by() //排序
+all() //回傳所有Obj的Q
+get() //取得"唯一"符合的物件 沒有或有多個都會exception需搭配try catch
+aggregate() //聚合函數
+exists()update()delete()
+修飾元:
+iexact //不區分大小寫
+contains/icontains //條件為含有某一字串 像SQL的LIKE/ILIKE
+in //提供list比對 只要符合其一就可
+gt/gte 大於/大於等於 lt/lte 小於/小於等於
+
+ex:
+less_than_two = Table.objects.filter(num__lt=2) //項目後面加兩個'_'底線 再放修飾元
+find_sth = Table.objects.filter(name__contains='sth') //找項目中字串=sth 後面加.exists() 回傳T/F
+find_one_two = Table.objects.filter(num__in=[1,2])
+
+
+---------------------------------------------------------
+
+*/
+
+其餘筆記
+用 {{}} 來輸出收到的資料
+
+for迴圈
+{% for small in big %}
+{endfor}
+
+/*
+
+連接資料庫資料
+插入文字到html
+
+html = '''
+----html文字敘述----
+<body>
+...
+{} //等等會被填入 可由HttpResponse(html.format(sth))插入
+...
+</body>
+----html文字敘述----
+'''
+
+for sth in somethime:
+    '<p>{}</p>'.format(sth.name) //可用format去安插{}
+
+*/
