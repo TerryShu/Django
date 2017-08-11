@@ -5,6 +5,7 @@ from django.http import HttpResponse , Http404
 from django.shortcuts import redirect
 from datetime import datetime
 from .models import Post, Product
+from datetime import datetime
 
 
 # Create your views here.
@@ -67,5 +68,11 @@ def disp_detail(request , sku):
 
     template = get_template('dispdetail.html')
     html = template.render({'product': p})
-    
     return HttpResponse(html)
+
+def show_time(request):
+    template = get_template('nowtime.html')
+    now = datetime.now()
+    html = template.render(locals())
+    return HttpResponse(html)
+

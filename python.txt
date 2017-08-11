@@ -116,9 +116,17 @@ raise Http404('display')
 
 ---------------------------------------------------------
 urls.py(負責網址與程式間的對應)
-	url(r'^$', homepage) ^表字串開頭 $表連接 => 此方法為根目錄呼叫homepage函式
-	url(r'^admin/', admin.site.urls) 當網址為192..../admin時執行admin
-	url(r'^list/([0-9a-zA-Z]+)/$', function) //用()來傳遞參數 表示如果網址為192..../list/a123A 'a123A'會傳到function內 
+
+	url(r'^admin/', admin.site.urls) 當網址為192..../admin時執行admin	
+	//r代表要求python解譯器保持後面字串原貌 因為原本直譯器會對逃脫字元做處理 後面放正規表示
+
+	url(r'^$', homepage) ^表字串開頭 $表連接 => 此方法為根目錄呼叫homepage函式 注意^/$ 這樣會需要192.....:8000// 才會連到正確要的homepage 原先就會加一個/
+
+	url(r'^list/([0-9a-zA-Z]+)/$', function) //用()來傳遞參數 表示如果網址為192..../list/a123A 'a123A'會傳到function內
+	url(r'^list/(?P<args>[0-9a-zA-Z]+)/$', function) //指定傳給args 上面寫法為未指定
+	def function(request , args)// 在view.py內用args接變數
+
+	http://pythex.org/  //用來驗證正規寫法
 ---------------------------------------------------------
 
 ---------------------------------------------------------
