@@ -5,7 +5,7 @@ import random
 from django.http import HttpResponse , Http404
 from django.shortcuts import redirect
 from datetime import datetime
-from .models import Post, Product 
+from .models import Post, Product
 from datetime import datetime
 
 
@@ -95,5 +95,10 @@ def tvshow( request , num='0' ):
     template = get_template('tv.html')
     tvnum = num
     tv = tv_list[int(tvnum)]
+    html = template.render(locals())
+    return HttpResponse(html)
+
+def FBLogin(request):
+    template = get_template('FBtry.html')
     html = template.render(locals())
     return HttpResponse(html)
