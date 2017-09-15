@@ -17,7 +17,11 @@ from django.contrib import admin
 from mainsite.views import homepage, showpost , listing , about , disp_detail,show_try ,tvshow,FBLogin,talk,talklist,mail,diary
 
 urlpatterns = [
+<<<<<<< HEAD
     url(r'^diary/',diary),
+=======
+    url(r'^diary',diary),
+>>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
     url(r'^mail/', mail),
     url(r'^talk/', talk),
     url(r'^talklist/', talklist),

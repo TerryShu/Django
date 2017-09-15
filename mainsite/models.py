@@ -25,16 +25,34 @@ class Post(models.Model):
 
 class Product(models.Model):
     SIZE = (
-        ('S' , 'Small'),
-        ('M' , 'Medium'),
-        ('L' , 'Large'),
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
     )
     title = models.CharField(max_length=200)
-    size = models.CharField(max_length=1,choices=SIZE,default='M')
+    size = models.CharField(max_length=1, choices=SIZE, default='M')
     num = models.IntegerField(default=0)
 
+    def __unicode__(self):
+        return self.title
+
+
+class Mood(models.Model):
+    status = models.CharField(max_length=10, null=False)
 
     def __unicode__(self):
+        return self.status
+
+
+class Talk(models.Model):
+    mood = models.ForeignKey('Mood', on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=10, default='匿名者')
+    message = models.TextField(null=False)
+    del_pass = models.CharField(max_length=10)
+    pub_time = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+<<<<<<< HEAD
         return self.title
 		
 		
@@ -53,3 +71,6 @@ class Talk(models.Model):
     def __unicode__(self):
         return self.message		
 		
+=======
+        return self.message
+>>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17

@@ -42,7 +42,7 @@ python manage.py migrate //更新資料庫內容
 //若有建model需要用著兩個指令 讓數據庫生效
 python manage.py runserver 192.168.203.128:8000 //runserver at 192........
 
-
+python manage.py runserver 0.0.0.0:8000
 python manage.py createsuperuser //建立管理者
 192.168.203.128:8000/admin  //管理者介面
 
@@ -107,7 +107,12 @@ View -> view.py(處理資料save&load)
 locals() //可以將目前記憶體內的區域變數打包成字典
 
 from django.http import Http404 
-raise Http404('display')
+raise Http404('text you want display')
+
+
+template = get_template('display.html') 
+    
+html = template.render({'html內要接收的名稱': 你要傳的東西})
  
 ---------------------------------------------------------
 
@@ -116,17 +121,15 @@ raise Http404('display')
 
 ---------------------------------------------------------
 urls.py(負責網址與程式間的對應)
+	url(r'^$', homepage) ^表字串開頭 $表連接 => 此方法為根目錄呼叫homepage函式
+	url(r'^admin/', admin.site.urls) 當網址為192..../admin時執行admin
+	url(r'^list/([0-9a-zA-Z]+)/$', function) //用()來傳遞參數 表示如果網址為192..../list/a123A 'a123A'會傳到function內 
 
-	url(r'^admin/', admin.site.urls) 當網址為192..../admin時執行admin	
-	//r代表要求python解譯器保持後面字串原貌 因為原本直譯器會對逃脫字元做處理 後面放正規表示
 
-	url(r'^$', homepage) ^表字串開頭 $表連接 => 此方法為根目錄呼叫homepage函式 注意^/$ 這樣會需要192.....:8000// 才會連到正確要的homepage 原先就會加一個/
+	url(r'^tv/(\d{1})$', tvshow , name='tv_url')
+	<li><a href="{% url 'tv_url' 1 %}"> // 將參數1 傳送至url.py name為tv_url 的function中
+	//result: http://192.168.203.128:8000/tv/1
 
-	url(r'^list/([0-9a-zA-Z]+)/$', function) //用()來傳遞參數 表示如果網址為192..../list/a123A 'a123A'會傳到function內
-	url(r'^list/(?P<args>[0-9a-zA-Z]+)/$', function) //指定傳給args 上面寫法為未指定
-	def function(request , args)// 在view.py內用args接變數
-
-	http://pythex.org/  //用來驗證正規寫法
 ---------------------------------------------------------
 
 ---------------------------------------------------------
@@ -134,6 +137,17 @@ admin.py(管理者頁面)(可管理model的table)
 
 from .models import NewTable //先匯入在model.py建立的表格
 admin.site.register(NewTable) //建立管理頁面
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+setting.py 設置路徑等參數
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
+]
+//可以用來放置靜態檔案 jpg...etc
+
 
 ---------------------------------------------------------
 
@@ -198,5 +212,49 @@ html = '''
 
 for sth in somethime:
     '<p>{}</p>'.format(sth.name) //可用format去安插{}
+
+*/
+
+list 結構 list = [ { '名稱' : '值1' , '名稱' : '值2' }, 
+                   { '名稱' : '值1' , '名稱' : '值2' }
+                   { '名稱' : '值1' , '名稱' : '值2' } ]
+
+
+/*
+表單from 用法 GET 會用URL傳值
+<form name='name' action="/yourpath" method='GET'>
+<input id='user_id' type='text' name='user_id'>
+<input id='user_pass' type='password' name='user_pass'>
+</form>
+
+在view.py內用try:接
+    try:
+        
+	user_id = request.GET['user_id']
+        
+	user_pass = request.GET['user_pass']
+    except:
+	user_id = None
+        
+	message = '如要張貼訊息，則每一個欄位都要填...'
+
+
+表單from 用法 POST 傳
+	<form name='my form' action="." method='POST'>
+        	{% csrf_token %} // 必須加入此tag防止CSRF攻擊
+	</form>
+
+而在接收端
+
+    ctx ={}
+    
+    ctx.update(csrf(request)) // 要用CSRF接request
+
+    render(request, "talk.html", locals()) // 以及使用render 不要用render_to_response <-快被Django刪除
+
+
+------------------------------------------------------------
+
+
 
 */

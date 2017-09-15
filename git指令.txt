@@ -4,7 +4,7 @@ git config --global user.email "信箱"
 
 
 git init //git初始化
-git remote add origin https://github.com/TerryShu/myweb.git//設定路徑傳到git
+git remote add origin https://github.com/TerryShu/Django.git//設定路徑傳到git
 //若出現 fatal: remote origin already exists.表示設定過路徑 先刪掉git remote rm origin 在重跑add
 git add .//把所有檔案標起來
 git commit -m 'commit' //加註解 -m為快速註解

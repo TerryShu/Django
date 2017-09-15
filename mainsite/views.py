@@ -207,6 +207,10 @@ def mail(request):
 
 def diary(request):
     ctx = {}
+<<<<<<< HEAD
+=======
+    template = get_template('diary.html')
+>>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
     ctx.update(csrf(request))
     if request.method == 'POST':
         login_form = form.DairyLogin(request.POST)
@@ -219,7 +223,12 @@ def diary(request):
     else:
         login_form = form.DairyLogin()
 
+<<<<<<< HEAD
     response = render(request,"diary.html",locals())
+=======
+    html = template.render(locals())
+    response = HttpResponse(html)
+>>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
     try:
         if user_name: response.set_cookie('username',user_name)
         if user_color: response.set_cookie('usercolor',user_color)
