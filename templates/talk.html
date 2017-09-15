@@ -3,26 +3,14 @@
 <head>
 {% include 'extend.html' %}
     <title>我有話要說</title>
-<<<<<<< HEAD
 	
 
 </head>
 <body>
-=======
 
 
 </head>
 <body>
-<script>
-function go_delete(id){
-    var user_pass = document.getElementById('user_pass').value;
-    if (user_pass != "") {
-        var usr = '/talk/' + id + '/' + user_pass;
-        window.location = usr;
-    }
-}
-</script>
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
 
     <nav class='navbar navbar-default'>
         <div class='container-fluid'>
@@ -32,15 +20,10 @@ function go_delete(id){
                 </div>
             </div>
             <ul class='nav navbar-nav'>
-<<<<<<< HEAD
                 <li><a href='/talk/'>張貼訊息</a></li>  
 				<li><a href='/talklist/'>瀏覽訊息</a></li> 
 				<li><a href='/mail/'>聯絡管理員</a></li> 
 				<li><a href='/diary/'>我的日記</a></li> 
-=======
-                <li><a href='/talk'>張貼訊息</a></li>
-				<li><a href='/talklist'>瀏覽訊息</a></li>
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
             </ul>
         </div>
     </nav>
@@ -55,12 +38,9 @@ function go_delete(id){
     <div class='col-md-4'>
         <div class='panel panel-default'>
             <div class='panel-heading' align=center>
-<<<<<<< HEAD
 				<form name='my form' action="." method='POST'>
                     {% csrf_token %}
-=======
 				<form name='my form' action="/talk" method='GET'>
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
 					現在的心情：
 					{% for m in moods %}
 					<input type='radio' name='mood' value='{{ m.status }}' >{{ m.status }}
@@ -74,7 +54,6 @@ function go_delete(id){
 					<input id='user_pass' type='password' name='user_pass'><br/>
 					<input type='submit' value='張貼'>
 					<input type='reset' value='清除重填'>
-<<<<<<< HEAD
 					<input type="hidden" name="ok" value="yes">
 				</form>
 				
@@ -83,7 +62,6 @@ function go_delete(id){
 	</div>	
 </div>
 
-=======
 				</form>
 			</div>
 		</div>
@@ -105,7 +83,5 @@ function go_delete(id){
     </div>
     {% cycle "" "" "</div>"%}
 {% endfor %}
-
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
 </body>
 </html>

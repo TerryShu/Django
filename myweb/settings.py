@@ -129,9 +129,5 @@ STATICFILES_DIRS = [
 ]
 
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-<<<<<<< HEAD
 MAILGUN_ACCESS_KEY = 'key-d061baf8b86677fd9fb3139ca850b00b'
-=======
-MAILGUN_ACCESS_KEY = '46bdc04318aa268ebbc9ca5ba33ff0e9'
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
 MAILGUN_SERVER_NAME = 'sandbox18b838814e964071b59c7b9464113743.mailgun.org'
