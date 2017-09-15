@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'extend.html' %}
+    <title>我有話要說</title>
+	
+
+</head>
+<body>
+
+    <nav class='navbar navbar-default'>
+        <div class='container-fluid'>
+            <div class='navbar-header'>
+                <div class='navbar-brand' align=center>
+                    我有話要說
+                </div>
+            </div>
+            <ul class='nav navbar-nav'>
+                <li><a href='/talk/'>張貼訊息</a></li>  
+				<li><a href='/talklist/'>瀏覽訊息</a></li> 
+				<li><a href='/mail/'>聯絡管理員</a></li> 
+				<li><a href='/diary/'>我的日記</a></li> 
+            </ul>
+        </div>
+    </nav>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/try.css' %}" />
+
+{% if message %}
+    <div class='alert alert-warning'>{{ message }}</div>
+{% endif %}
+
+<div class='row'>
+    <div class='col-md-4'>
+        <div class='panel panel-default'>
+            <div class='panel-heading' align=center>
+				<form name='my form' action="." method='POST'>
+                    {% csrf_token %}
+					現在的心情：
+					{% for m in moods %}
+					<input type='radio' name='mood' value='{{ m.status }}' >{{ m.status }}
+					{% endfor %}
+					<br/>
+					心情留言板：<br/>
+					<textarea name='user_post' rows=3 cols=70></textarea><br/>
+					<label for='user_id' >你的暱稱：</label>
+					<input id='user_id' type='text' name='user_id'>
+					<label for='user_pass'>張貼/刪除密碼：</label>
+					<input id='user_pass' type='password' name='user_pass'><br/>
+					<input type='submit' value='張貼'>
+					<input type='reset' value='清除重填'>
+					<input type="hidden" name="ok" value="yes">
+				</form>
+				
+			</div>
+		</div>
+	</div>	
+</div>
+
+</body>
+</html>

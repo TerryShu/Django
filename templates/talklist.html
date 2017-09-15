@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'extend.html' %}
+    <title>都說了些甚麼</title>
+</head>
+<body>
+
+    <nav class='navbar navbar-default'>
+        <div class='container-fluid'>
+            <div class='navbar-header'>
+                <div class='navbar-brand' align=center>
+                    都說了些甚麼
+                </div>
+            </div>
+            <ul class='nav navbar-nav'>
+                <li><a href='/talk/'>張貼訊息</a></li>  
+				<li><a href='/talklist/'>瀏覽訊息</a></li> 
+				<li><a href='/mail/'>聯絡管理員</a></li> 
+				<li><a href='/diary/'>我的日記</a></li> 
+            </ul>
+        </div>
+    </nav>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/try.css' %}" />
+<div class='container'>
+
+{% for p in posts %}
+    {% cycle "<div class='row'> <div class='col-md-6'>" "<div class='col-md-6'>" %}
+        <div class='panel {%cycle "panel-primary" "panel-info" "panel-warning" "panel-success" %}'>
+            <div class='panel-heading'>
+                <table width='100%'>
+                    <tr>
+                        <td>
+                            【{{ p.nickname }}】覺得{{ p.mood }}
+                        </td>
+                        <td align=right>
+                            <i><small>{{ p.pub_time }}</small></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class='panel-body'>{{ p.message | linebreaks }}</div>
+        </div>
+    </div>
+    {% cycle "" "</div>"%}
+{% endfor %}
+</div>
+</body>
+</html>

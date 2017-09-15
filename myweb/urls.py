@@ -14,10 +14,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from mainsite.views import homepage, showpost , listing , about , disp_detail,show_try ,tvshow,FBLogin
+from mainsite.views import homepage, showpost , listing , about , disp_detail,show_try ,tvshow,FBLogin,talk,talklist,mail,diary
 
 urlpatterns = [
-    url(r'^$', homepage),
+    url(r'^diary/',diary),
+    url(r'^mail/', mail),
+    url(r'^talk/', talk),
+    url(r'^talklist/', talklist),
     url(r'^fb/', FBLogin),
 	url(r'^tv/(\d{1})$', tvshow , name='tv_url'),
     url(r'^post/(\d{4})/(\d{1,2})/(\d{1,2})$', show_try),
@@ -26,5 +29,5 @@ urlpatterns = [
 	url(r'^list/([0-9a-zA-Z]+)', disp_detail),
 	url(r'^list/', listing),
     url(r'^about/', about),
-
+	url(r'^$', homepage),
 ]

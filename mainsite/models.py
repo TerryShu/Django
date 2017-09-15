@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.utils import timezone
 
 
 # Create your models here.
+
+
 
 class Post(models.Model):
     bool = models.BooleanField(default=False)
@@ -34,4 +37,19 @@ class Product(models.Model):
     def __unicode__(self):
         return self.title
 		
+		
+class Mood(models.Model):
+    status = models.CharField(max_length=10, null=False)
+
+    def __unicode__(self):
+        return self.status
+
+class Talk(models.Model):
+    mood = models.ForeignKey('Mood', on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=10, default='匿名者')
+    message = models.TextField(null=False)
+    del_pass = models.CharField(max_length=10)
+    pub_time = models.DateTimeField(auto_now=True)
+    def __unicode__(self):
+        return self.message		
 		

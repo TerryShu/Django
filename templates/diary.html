@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'extend.html' %}
+    <title>日記本</title>
+	
+
+</head>
+<body>
+
+    <nav class='navbar navbar-default'>
+        <div class='container-fluid'>
+            <div class='navbar-header'>
+                <div class='navbar-brand' align=center>
+                    我的日記
+                </div>
+            </div>
+            <ul class='nav navbar-nav'>
+                <li><a href='/talk/'>張貼訊息</a></li>  
+				<li><a href='/talklist/'>瀏覽訊息</a></li> 
+				<li><a href='/mail/'>聯絡管理員</a></li> 
+				<li><a href='/diary/'>我的日記</a></li> 
+            </ul>
+        </div>
+    </nav>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/try.css' %}" />
+
+    <div class='container'>
+     {% if message %}
+           <div class='alert alert-warning'>{{ message }}</div>
+     {% endif %}
+     <div class='panel panel-primary'>
+           <div class='panel-heading'>
+              <form name='my form' action='.' method='POST'>
+                 {% csrf_token %}
+                  <h3>我的日記</h3>
+			</div>
+           <div class='panel-body'>
+             {{ login_form.as_p }}
+           </div>
+           <div class='panel-footer'>
+             <input type='submit' value='送出'>
+             </form>
+         </div>
+        </div>
+    </div>
+</body>
+</html>
