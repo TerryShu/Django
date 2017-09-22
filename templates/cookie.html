@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 {% include 'extend.html' %}
-    <title>日記本</title>
+    <title>cookie</title>
 	
 
 </head>
@@ -12,15 +12,15 @@
         <div class='container-fluid'>
             <div class='navbar-header'>
                 <div class='navbar-brand' align=center>
-                    我的日記
+                    cookie
                 </div>
             </div>
             <ul class='nav navbar-nav'>
                 <li><a href='/talk/'>張貼訊息</a></li>  
 				<li><a href='/talklist/'>瀏覽訊息</a></li> 
 				<li><a href='/mail/'>聯絡管理員</a></li> 
-				<li><a href='/diary/'>我的日記</a></li> 
-				<li><a href='/cookie/'>cookie</a></li
+				<li><a href='/diary/'>我的日記</a></li>
+				<li><a href='/cookie/'>cookie</a></li> 
             </ul>
         </div>
     </nav>
@@ -33,18 +33,13 @@
      {% endif %}
      <div class='panel panel-primary'>
            <div class='panel-heading'>
-              <form name='my form' action='.' method='POST'>
-                 {% csrf_token %}
-                  <h3>我的日記</h3>
+                  <h3>cookie</h3>
 			</div>
            <div class='panel-body'>
-             {{ color_form.as_p }}
+				<p>你的姓名:{{ name }} 幸運色:{{ color }}</p> 
            </div>
-           <div class='panel-footer'>
-             <input type='submit' value='送出'>
-             </form>
+
          </div>
-        </div>
-    </div>
+      </div>
 </body>
 </html>

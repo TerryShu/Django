@@ -5,14 +5,14 @@ import random
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from datetime import datetime
-from .models import Post, Product, Mood, Talk
+from .models import Post, Product, Mood, Talk , User
 from datetime import datetime
 from django.template import RequestContext, Context, Template
 from django.shortcuts import render
 from django.template.context_processors import csrf
-from django.views.decorators.csrf import csrf_protect
 from mainsite import form
 from django.core.mail import EmailMessage
+
 
 # Create your views here.
 def homepage(request):
@@ -205,27 +205,67 @@ def mail(request):
 
     return render(request, "mail.html", locals())
 
+
 def diary(request):
     ctx = {}
     ctx.update(csrf(request))
     if request.method == 'POST':
-        login_form = form.DairyLogin(request.POST)
-        if login_form.is_valid():
-            user_name = login_form.cleaned_data['name']
-            user_color = login_form.cleaned_data['color']
+        color_form = form.DairyLogin(request.POST)
+        if color_form.is_valid():
+            user_name = color_form.cleaned_data['name']
+            user_color = color_form.cleaned_data['color']
             message = 'sucess'
         else:
             message = 'fail'
     else:
-        login_form = form.DairyLogin()
+        color_form = form.DairyLogin()
 
-
-    response = render(request,"diary.html",locals())
+    response = render(request, "diary.html", locals())
 
     try:
-        if user_name: response.set_cookie('username',user_name)
-        if user_color: response.set_cookie('usercolor',user_color)
+        if user_name: response.set_cookie('username', user_name)
+        if user_color: response.set_cookie('usercolor', user_color)
     except:
         pass
+
+    return response
+
+
+def cookie(request):
+    if 'username' in request.COOKIES and 'usercolor' in request.COOKIES:
+        name = request.COOKIES['username']
+        color = request.COOKIES['usercolor']
+    else:
+        name = 'fail'
+        color = 'fail'
+
+    return render(request, "cookie.html", locals())
+
+def sessionLogin(requset):
+    ctx = {}
+    ctx.update(csrf(requset))
+    if requset.method == 'POST':
+        login_form = form.Login(requset.POST)
+        if login_form.is_valid():
+            user_name = login_form.cleaned_data['account']
+            user_password = login_form.cleaned_data['password']
+            message = 'sucess'
+        else:
+            message = 'fail'
+
+
+        user = User.objects.get(name=user_name)
+        if user.password == user_password :
+            requset.session['username'] = user_name
+            username_session = requset.session['username']
+            message = 'password OK'
+        else :
+            message = 'password error'
+
+    else:
+        login_form = form.Login()
+
+    response = render(requset, "login.html", locals())
+
 
     return response

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Post,Product,Mood,Talk
+from .models import Post,Product,Mood,Talk,User
 
 # Register your models here.
 
@@ -13,3 +13,4 @@ class PostAdmin(admin.ModelAdmin):
     ordering=('-pub_time',)
 admin.site.register(Mood)
 admin.site.register(Talk, PostAdmin)
+admin.site.register(User)

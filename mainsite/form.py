@@ -29,3 +29,7 @@ class DairyLogin(forms.Form):
     ]
     name = forms.CharField(label='您的姓名', max_length=50)
     color = forms.ChoiceField(label='幸運色',choices=color)
+
+class Login(forms.Form):
+    account = forms.CharField(label='帳號', max_length=10)
+    password = forms.CharField(label='密碼', widget=forms.PasswordInput())

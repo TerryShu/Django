@@ -14,9 +14,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from mainsite.views import homepage, showpost , listing , about , disp_detail,show_try ,tvshow,FBLogin,talk,talklist,mail,diary
+from mainsite.views import homepage, showpost , listing , about , disp_detail,show_try ,tvshow,FBLogin,talk,talklist,mail,diary,cookie,sessionLogin
 
 urlpatterns = [
+    url(r'^login/',sessionLogin),
+    url(r'^cookie/',cookie),
     url(r'^diary/',diary),
     url(r'^mail/', mail),
     url(r'^talk/', talk),

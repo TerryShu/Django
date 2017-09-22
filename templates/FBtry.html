@@ -5,24 +5,16 @@
     <title>FBLogin</title>
 </head>
 <body>
-<script>
-<<<<<<< HEAD
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1509381632431713',
-      xfbml      : true,
-      version    : 'v2.10'
-=======
+<script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1509381632431713',
       cookie     : true,
       xfbml      : true,
-      version    : 'v2.8'
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
+      version    : 'v2.10'
     });
-    FB.AppEvents.logPageView();
+    FB.AppEvents.logPageView();   
   };
 
   (function(d, s, id){
@@ -32,45 +24,24 @@
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-
-<<<<<<< HEAD
-</script>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.10&appId=1509381632431713";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
-
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-=======
-  FB.getLoginStatus(function(response) {
+   
+   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
-  });
+});
 
-  function checkLoginState() {
+function checkLoginState() {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
 }
+   
 </script>
 
-
-<fb:login-button
+<fb:login-button 
   scope="public_profile,email"
   onlogin="checkLoginState();">
 </fb:login-button>
 
->>>>>>> 7d8f841ba0f1f80bf236287ce5c9645d0b0a6e17
+
 </body>
 </html>
